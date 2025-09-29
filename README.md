@@ -1,7 +1,7 @@
 # ProxyCloud - Fast, Unlimited, Safe VPN
 
 <p align="center">
-  <img src="assets/images/logo.png" alt="ProxyCloud Logo" width="120">
+  <img src="public/images/logo.jpg" alt="ProxyCloud Logo" width="200">
 </p>
 
 <h3 align="center">Experience unrestricted internet with our open-source VPN solution</h3>
