@@ -97,3 +97,15 @@ This project is open source, licensed under the [MIT License](LICENSE).
 ## 📄 Additional Information
 
 © 2025 ProxyCloud. All rights reserved. Fast, Unlimited, Safe, Free, No Ads, No Logs.
+
+## Deploy to Vercel
+
+To deploy to Vercel with server-side rendering:
+
+1. Push your code to a GitHub repository
+2. Connect the repository to Vercel
+3. Vercel will automatically detect the Next.js project and deploy it
+
+The vercel.json file is configured to use the official Vercel Next.js builder, which will handle the deployment properly.
+
+Note: The application is configured for server-side rendering on Vercel, not static export. If you want to use static export, see the GitHub Pages deployment instructions above.
