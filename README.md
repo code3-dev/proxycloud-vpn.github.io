@@ -49,19 +49,6 @@ yay -S proxycloud-gui-bin
 - **🚫 No Ads**: Enjoy an uninterrupted browsing experience without any advertisements
 - **🆓 Completely Free**: No hidden costs or premium features - everything is free forever
 
-## 🛠️ Technology Stack
-
-ProxyCloud utilizes modern technologies to provide a seamless user experience:
-
-- **Frontend**: 
-  - HTML5, CSS3 with [Tailwind CSS](https://tailwindcss.com/)
-  - [FontAwesome](https://fontawesome.com/) for icons
-  - Custom CSS for glass morphism effects
-  - Vanilla JavaScript for interactivity
-- **Core Technologies**:
-  - **Android**: [Flutter](https://flutter.dev/), Kotlin + Xray Core
-  - **Desktop**: [Electron](https://www.electronjs.org/) (JS) + Hiddy Core
-
 ## Open Source
 
 ProxyCloud is completely open source. We believe in transparency and giving users control over their privacy tools. Our code is available for anyone to inspect, modify, and contribute to.
