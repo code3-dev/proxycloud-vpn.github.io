@@ -1,4 +1,6 @@
+"use client"
 import { Shield, Zap, Eye, Code, Lock, Globe } from "lucide-react"
+import * as React from "react"
 
 const features = [
   {
@@ -46,6 +48,8 @@ const features = [
 ]
 
 export function Features() {
+  const [activeIndex, setActiveIndex] = React.useState<number | null>(null)
+
   return (
     <section className="relative py-32 px-4 border-t border-border/50 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent" />
@@ -64,14 +68,24 @@ export function Features() {
           {features.map((feature, i) => (
             <div
               key={i}
-              className="group relative p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl hover:border-accent/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-accent/10"
+              className={`group relative p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl transition-all duration-300 ${activeIndex === i
+                  ? 'border-accent/50 scale-[1.02] shadow-2xl shadow-accent/10'
+                  : 'hover:border-accent/50 hover:scale-[1.02] hover:shadow-2xl hover:shadow-accent/10'
+                }`}
+              onTouchStart={() => setActiveIndex(i)}
+              onMouseEnter={() => setActiveIndex(i)}
+              onMouseLeave={() => setActiveIndex(null)}
+              onBlur={() => setActiveIndex(null)}
+              tabIndex={0}
             >
               <div
-                className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl`}
+                className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 transition-opacity rounded-3xl ${activeIndex === i ? 'opacity-100' : 'group-hover:opacity-100'
+                  }`}
               />
 
               <div className="relative z-10">
-                <div className="w-14 h-14 bg-secondary/50 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <div className={`w-14 h-14 bg-secondary/50 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6 transition-transform ${activeIndex === i ? 'scale-110' : 'group-hover:scale-110'
+                  }`}>
                   <feature.icon className={`w-7 h-7 ${feature.iconColor}`} strokeWidth={2} />
                 </div>
                 <h3 className="text-2xl font-bold mb-4">{feature.title}</h3>
