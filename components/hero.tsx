@@ -89,7 +89,7 @@ export function Hero() {
             <div className="hidden md:block w-px h-12 bg-border/50" />
             <div className="group px-6 py-4 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl hover:border-accent/50 transition-all">
               <span className="text-sm text-muted-foreground/80 font-medium">Desktop</span>
-              <div className="text-base text-foreground mt-1 font-semibold">Electron + Hiddy/Warp Core</div>
+              <div className="text-base text-foreground mt-1 font-semibold">Electron + Hiddify/Warp Core</div>
             </div>
           </div>
         </div>

@@ -60,7 +60,7 @@ ProxyCloud utilizes modern technologies to provide a seamless user experience:
   - Vanilla JavaScript for interactivity
 - **Core Technologies**:
   - **Android**: [Flutter](https://flutter.dev/), Kotlin + Xray Core
-  - **Desktop**: [Electron](https://www.electronjs.org/) (JS) + Hiddy Core
+  - **Desktop**: [Electron](https://www.electronjs.org/) (JS) + Hiddify Core
 
 ## Open Source
 
