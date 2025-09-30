@@ -2,8 +2,11 @@
 
 import { Shield, Zap, Lock, Globe, Github, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 export function Hero() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
+
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-accent/5" />
@@ -38,9 +41,18 @@ export function Hero() {
           ].map((item, i) => (
             <div
               key={i}
-              className={`group flex items-center gap-2 px-4 py-2 bg-gradient-to-br ${item.color} backdrop-blur-sm border border-border/50 rounded-full hover:border-accent/50 transition-all hover:scale-105`}
+              className={`group flex items-center gap-2 px-4 py-2 bg-gradient-to-br ${item.color} backdrop-blur-sm border border-border/50 rounded-full transition-all ${activeIndex === i
+                  ? 'border-accent/50 scale-105'
+                  : 'hover:border-accent/50 hover:scale-105'
+                }`}
+              onTouchStart={() => setActiveIndex(i)}
+              onMouseEnter={() => setActiveIndex(i)}
+              onMouseLeave={() => setActiveIndex(null)}
+              onBlur={() => setActiveIndex(null)}
+              tabIndex={0}
             >
-              <item.icon className="w-4 h-4 text-accent group-hover:scale-110 transition-transform" />
+              <item.icon className={`w-4 h-4 text-accent transition-transform ${activeIndex === i ? 'scale-110' : 'group-hover:scale-110'
+                }`} />
               <span className="text-xs sm:text-sm font-semibold">{item.text}</span>
             </div>
           ))}
@@ -82,12 +94,32 @@ export function Hero() {
             Built with modern technology
           </p>
           <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
-            <div className="group px-6 py-4 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl hover:border-accent/50 transition-all">
+            <div
+              className={`group px-6 py-4 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl transition-all ${activeIndex === 4
+                  ? 'border-accent/50'
+                  : 'hover:border-accent/50'
+                }`}
+              onTouchStart={() => setActiveIndex(4)}
+              onMouseEnter={() => setActiveIndex(4)}
+              onMouseLeave={() => setActiveIndex(null)}
+              onBlur={() => setActiveIndex(null)}
+              tabIndex={0}
+            >
               <span className="text-sm text-muted-foreground/80 font-medium">Android</span>
               <div className="text-base text-foreground mt-1 font-semibold">Flutter, Kotlin + Xray Core</div>
             </div>
             <div className="hidden md:block w-px h-12 bg-border/50" />
-            <div className="group px-6 py-4 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl hover:border-accent/50 transition-all">
+            <div
+              className={`group px-6 py-4 bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl transition-all ${activeIndex === 5
+                  ? 'border-accent/50'
+                  : 'hover:border-accent/50'
+                }`}
+              onTouchStart={() => setActiveIndex(5)}
+              onMouseEnter={() => setActiveIndex(5)}
+              onMouseLeave={() => setActiveIndex(null)}
+              onBlur={() => setActiveIndex(null)}
+              tabIndex={0}
+            >
               <span className="text-sm text-muted-foreground/80 font-medium">Desktop</span>
               <div className="text-base text-foreground mt-1 font-semibold">Electron + Hiddify/Warp Core</div>
             </div>

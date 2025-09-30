@@ -112,10 +112,47 @@
   }
 }
 
+@keyframes pulse-border {
+  0% {
+    box-shadow: 0 0 0 0 rgba(112, 173, 255, 0.2);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(112, 173, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(112, 173, 255, 0);
+  }
+}
+
 .animate-glow {
   animation: glow 3s ease-in-out infinite;
 }
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-border {
+  animation: pulse-border 2s infinite;
+}
+
+/* Classes for touch devices */
+.group.active,
+.group:focus-visible {
+  /* Add styles that should appear on touch devices */
+}
+
+.group.active .active\:opacity-100,
+.group:focus-visible .focus-visible\:opacity-100 {
+  opacity: 1;
+}
+
+.group.active .active\:scale-110,
+.group:focus-visible .focus-visible\:scale-110 {
+  transform: scale(1.1);
+}
+
+.group.active .active\:scale-\[1\.02\],
+.group:focus-visible .focus-visible\:scale-\[1\.02\] {
+  transform: scale(1.02);
 }

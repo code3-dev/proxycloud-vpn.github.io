@@ -92,6 +92,31 @@ const linuxDownloads = [
 
 export function Downloads() {
   const [activeTab, setActiveTab] = useState<"android" | "desktop">("android")
+  const [activeCardIndices, setActiveCardIndices] = useState<Set<string>>(new Set())
+
+  const handleTouchStart = (index: string) => {
+    setActiveCardIndices(prev => {
+      const newSet = new Set(prev)
+      newSet.add(index)
+      return newSet
+    })
+  }
+
+  const handleMouseEnter = (index: string) => {
+    setActiveCardIndices(prev => {
+      const newSet = new Set(prev)
+      newSet.add(index)
+      return newSet
+    })
+  }
+
+  const handleMouseLeave = () => {
+    setActiveCardIndices(new Set())
+  }
+
+  const handleBlur = () => {
+    setActiveCardIndices(new Set())
+  }
 
   return (
     <section id="downloads" className="relative py-32 px-4 border-t border-border/50 overflow-hidden">
@@ -110,11 +135,10 @@ export function Downloads() {
             size="lg"
             variant={activeTab === "android" ? "default" : "outline"}
             onClick={() => setActiveTab("android")}
-            className={`gap-2 px-8 py-6 rounded-2xl text-lg transition-all ${
-              activeTab === "android"
+            className={`gap-2 px-8 py-6 rounded-2xl text-lg transition-all ${activeTab === "android"
                 ? "bg-accent hover:bg-accent/90 shadow-lg shadow-accent/25"
                 : "hover:bg-accent/10 hover:border-accent"
-            }`}
+              }`}
           >
             <Smartphone className="w-5 h-5" />
             Android
@@ -123,11 +147,10 @@ export function Downloads() {
             size="lg"
             variant={activeTab === "desktop" ? "default" : "outline"}
             onClick={() => setActiveTab("desktop")}
-            className={`gap-2 px-8 py-6 rounded-2xl text-lg transition-all ${
-              activeTab === "desktop"
+            className={`gap-2 px-8 py-6 rounded-2xl text-lg transition-all ${activeTab === "desktop"
                 ? "bg-accent hover:bg-accent/90 shadow-lg shadow-accent/25"
                 : "hover:bg-accent/10 hover:border-accent"
-            }`}
+              }`}
           >
             <Monitor className="w-5 h-5" />
             Desktop
@@ -142,15 +165,29 @@ export function Downloads() {
                 <a
                   key={i}
                   href={download.url}
-                  className="group flex items-center justify-between p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl hover:border-accent/50 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-accent/10"
+                  className={`group flex items-center justify-between p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl transition-all ${activeCardIndices.has(`android-${i}`)
+                      ? 'border-accent/50 scale-[1.02] shadow-xl shadow-accent/10'
+                      : 'hover:border-accent/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-accent/10'
+                    }`}
+                  onTouchStart={() => handleTouchStart(`android-${i}`)}
+                  onMouseEnter={() => handleMouseEnter(`android-${i}`)}
+                  onMouseLeave={handleMouseLeave}
+                  onBlur={handleBlur}
+                  tabIndex={0}
                 >
                   <div>
-                    <h3 className="text-xl font-bold mb-2 group-hover:text-accent transition-colors">
+                    <h3 className={`text-xl font-bold mb-2 transition-colors ${activeCardIndices.has(`android-${i}`)
+                        ? 'text-accent'
+                        : 'group-hover:text-accent'
+                      }`}>
                       {download.name}
                     </h3>
                     <p className="text-base text-muted-foreground">{download.arch}</p>
                   </div>
-                  <Download className="w-6 h-6 text-muted-foreground group-hover:text-accent group-hover:scale-110 transition-all" />
+                  <Download className={`w-6 h-6 text-muted-foreground transition-all ${activeCardIndices.has(`android-${i}`)
+                      ? 'text-accent scale-110'
+                      : 'group-hover:text-accent group-hover:scale-110'
+                    }`} />
                 </a>
               ))}
             </div>
@@ -170,15 +207,29 @@ export function Downloads() {
                   <a
                     key={i}
                     href={download.url}
-                    className="group flex items-center justify-between p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl hover:border-accent/50 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-accent/10"
+                    className={`group flex items-center justify-between p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl transition-all ${activeCardIndices.has(`windows-${i}`)
+                        ? 'border-accent/50 scale-[1.02] shadow-xl shadow-accent/10'
+                        : 'hover:border-accent/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-accent/10'
+                      }`}
+                    onTouchStart={() => handleTouchStart(`windows-${i}`)}
+                    onMouseEnter={() => handleMouseEnter(`windows-${i}`)}
+                    onMouseLeave={handleMouseLeave}
+                    onBlur={handleBlur}
+                    tabIndex={0}
                   >
                     <div>
-                      <h4 className="text-xl font-bold mb-2 group-hover:text-accent transition-colors">
+                      <h4 className={`text-xl font-bold mb-2 transition-colors ${activeCardIndices.has(`windows-${i}`)
+                          ? 'text-accent'
+                          : 'group-hover:text-accent'
+                        }`}>
                         {download.name}
                       </h4>
                       <p className="text-base text-muted-foreground">{download.format}</p>
                     </div>
-                    <Download className="w-6 h-6 text-muted-foreground group-hover:text-accent group-hover:scale-110 transition-all" />
+                    <Download className={`w-6 h-6 text-muted-foreground transition-all ${activeCardIndices.has(`windows-${i}`)
+                        ? 'text-accent scale-110'
+                        : 'group-hover:text-accent group-hover:scale-110'
+                      }`} />
                   </a>
                 ))}
               </div>
@@ -194,17 +245,31 @@ export function Downloads() {
                   <a
                     key={i}
                     href={download.url}
-                    className="group flex items-center justify-between p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl hover:border-accent/50 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-accent/10"
+                    className={`group flex items-center justify-between p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl transition-all ${activeCardIndices.has(`mac-${i}`)
+                        ? 'border-accent/50 scale-[1.02] shadow-xl shadow-accent/10'
+                        : 'hover:border-accent/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-accent/10'
+                      }`}
+                    onTouchStart={() => handleTouchStart(`mac-${i}`)}
+                    onMouseEnter={() => handleMouseEnter(`mac-${i}`)}
+                    onMouseLeave={handleMouseLeave}
+                    onBlur={handleBlur}
+                    tabIndex={0}
                   >
                     <div>
-                      <h4 className="text-lg font-bold mb-2 group-hover:text-accent transition-colors">
+                      <h4 className={`text-lg font-bold mb-2 transition-colors ${activeCardIndices.has(`mac-${i}`)
+                          ? 'text-accent'
+                          : 'group-hover:text-accent'
+                        }`}>
                         {download.name}
                       </h4>
                       <p className="text-sm text-muted-foreground">
                         {download.format} • {download.arch}
                       </p>
                     </div>
-                    <Download className="w-6 h-6 text-muted-foreground group-hover:text-accent group-hover:scale-110 transition-all" />
+                    <Download className={`w-6 h-6 text-muted-foreground transition-all ${activeCardIndices.has(`mac-${i}`)
+                        ? 'text-accent scale-110'
+                        : 'group-hover:text-accent group-hover:scale-110'
+                      }`} />
                   </a>
                 ))}
               </div>
@@ -220,15 +285,29 @@ export function Downloads() {
                   <a
                     key={i}
                     href={download.url}
-                    className="group flex items-center justify-between p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl hover:border-accent/50 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-accent/10"
+                    className={`group flex items-center justify-between p-8 bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl transition-all ${activeCardIndices.has(`linux-${i}`)
+                        ? 'border-accent/50 scale-[1.02] shadow-xl shadow-accent/10'
+                        : 'hover:border-accent/50 hover:scale-[1.02] hover:shadow-xl hover:shadow-accent/10'
+                      }`}
+                    onTouchStart={() => handleTouchStart(`linux-${i}`)}
+                    onMouseEnter={() => handleMouseEnter(`linux-${i}`)}
+                    onMouseLeave={handleMouseLeave}
+                    onBlur={handleBlur}
+                    tabIndex={0}
                   >
                     <div>
-                      <h4 className="text-lg font-bold mb-2 group-hover:text-accent transition-colors">
+                      <h4 className={`text-lg font-bold mb-2 transition-colors ${activeCardIndices.has(`linux-${i}`)
+                          ? 'text-accent'
+                          : 'group-hover:text-accent'
+                        }`}>
                         {download.name}
                       </h4>
                       <p className="text-sm text-muted-foreground">{download.format}</p>
                     </div>
-                    <Download className="w-6 h-6 text-muted-foreground group-hover:text-accent group-hover:scale-110 transition-all" />
+                    <Download className={`w-6 h-6 text-muted-foreground transition-all ${activeCardIndices.has(`linux-${i}`)
+                        ? 'text-accent scale-110'
+                        : 'group-hover:text-accent group-hover:scale-110'
+                      }`} />
                   </a>
                 ))}
               </div>
